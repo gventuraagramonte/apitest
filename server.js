@@ -20,6 +20,8 @@ socket.connect(server)
 
 router(app)
 
+app.use('/app', express.static('public'))
+
 server.listen(4000, function () {
   console.log('this app starting port: 4000')
 })

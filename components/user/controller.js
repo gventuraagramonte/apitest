@@ -3,19 +3,25 @@
 const store = require('./store')
 const socket = require('../../socket').socket
 
-function addUser (name, lastname, dni, active) {
-    if(!dni){
-        return Promise.reject('Invalid Dni')
-    }
+function addUser (name, lastname, dni, active, file) {
+  if (!dni) {
+    return Promise.reject('Invalid Dni')
+  }
 
-    const fullUser = {
-        name: name,
-        lastname: lastname,
-        dni: dni,
-        active: active
-    }
+  let fileUrl = ''
+  if (file) {
+    fileUrl = 'http://localhost:4000/app/files/' + file.filename
+  }
 
-    return store.add(fullUser)
+  const fullUser = {
+    name: name,
+    lastname: lastname,
+    dni: dni,
+    active: active,
+    file: fileUrl
+  }
+
+  return store.add(fullUser)
 }
 
 function listUsers () {

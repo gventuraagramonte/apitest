@@ -1,9 +1,14 @@
 'use strict'
 
 const express = require('express')
+const multer = require('multer')
 const response = require('../../network/response')
 const controller = require('./controller')
 const router = express.Router()
+
+const upload = multer({
+  dest: 'public/files/'
+})
 
 router.get('/', function (req, res) {
   controller.listUsers()
@@ -15,8 +20,9 @@ router.get('/', function (req, res) {
     })
 })
 
-router.post('/', function (req, res) {
-  controller.addUser(req.body.name, req.body.lastname, req.body.dni, req.body.active)
+router.post('/', upload.single('file'), function (req, res) {
+  console.log(req.file)
+  controller.addUser(req.body.name, req.body.lastname, req.body.dni, req.body.active, req.file)
     .then((fullUser) => {
       response.success(req, res, fullUser, 201)
     })

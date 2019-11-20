@@ -20,6 +20,9 @@ const userSchema = mongoose.Schema({
     type: Boolean,
     allowNull: false,
     defaultValue: false
+  },
+  file: {
+    type: String
   }
 })
 
